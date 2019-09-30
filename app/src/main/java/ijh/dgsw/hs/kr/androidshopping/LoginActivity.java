@@ -1,8 +1,10 @@
 package ijh.dgsw.hs.kr.androidshopping;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,21 +31,28 @@ public class LoginActivity extends AppCompatActivity {
         logoAni.setDuration(2000); // 지속시간
         logoAni.setFillAfter(true); // 이동 후 이동한 자리에 남아있을건지
         logoAni.setStartOffset(1500); // 딜레이
+        logoAni.setInterpolator(new AccelerateDecelerateInterpolator()); // interpolator 설정. AccelerteDecelerate : 시작지점에 가속했다 종료시점에 감속
 
         loginFormAni = new AlphaAnimation(0, 1);
         loginFormAni.setDuration(1000);
-        loginFormAni.setStartOffset(2500);
+        loginFormAni.setStartOffset(3000);
 
         imgView.setAnimation(logoAni); // 애니메이션을 세팅해줌
         loginForm.setAnimation(loginFormAni);
     }
 
     public void onLogin(View v){
-        // 로그인 id, pw 확인 후 일치 시
+        // 로그인 id, pw 확인 후 일치 확인
         // main Activity로 이동
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     public void onRegister(View v){
         // register Activity로 이동
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
     }
+
+    // 만약 로그인 되어있는 경우라면, 2초동안 로고만 보여준 후 바로 메인화면으로 이동
 }
