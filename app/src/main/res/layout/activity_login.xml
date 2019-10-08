@@ -43,6 +43,9 @@
             android:id="@+id/editText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittxt"
+            android:textCursorDrawable="@drawable/edittxt_cursor"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/id"
             android:inputType="textEmailAddress" />
@@ -51,6 +54,8 @@
             android:id="@+id/editText2"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/custom_edittxt"
+            android:textCursorDrawable="@drawable/edittxt_cursor"
             android:ems="10"
             android:hint="@string/pw"
             android:inputType="textPassword" />
