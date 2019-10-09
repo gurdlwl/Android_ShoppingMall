@@ -2,6 +2,7 @@ package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -27,6 +29,12 @@ public class RegisterActivity extends AppCompatActivity {
     EditText pw;
     EditText pwChk;
     RadioGroup gender;
+    RadioButton male;
+    RadioButton female;
+
+    final String EmptyStr = "";
+    String selectYears = "";
+    String selectGender = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +47,18 @@ public class RegisterActivity extends AppCompatActivity {
         pw = findViewById(R.id.pwEt);
         pwChk = findViewById(R.id.pwChkEt); // pwEt와 값이 같은지 확인
         gender = findViewById(R.id.genderRg);
+        male = findViewById(R.id.maleRb);
+        female = findViewById(R.id.femaleRb);
 
         RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener(){
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+                if(checkedId == male.getId()){
+                    selectGender = String.valueOf(male.getText());
+                } else if (checkedId == female.getId()){
+                    selectGender = String.valueOf(female.getText());
+                }
             }
         };
         gender.setOnCheckedChangeListener(listener);
@@ -56,7 +70,10 @@ public class RegisterActivity extends AppCompatActivity {
         yearsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                selectYears = yearsSpinner.getSelectedItem().toString();
+                if(selectYears.equals("선택")){
+                    selectYears = EmptyStr;
+                }
             }
 
             @Override
@@ -116,22 +133,35 @@ public class RegisterActivity extends AppCompatActivity {
             showDialog("비밀번호 확인", pwChk);
             return true;
         }
+        else if(TextUtils.isEmpty(selectGender)){
+            showDialog("성별");
+        }
+        else if(TextUtils.isEmpty(selectYears)){
+            showDialog("연령");
+        }
 
         return false;
+    }
+
+    private void showDialog(String str){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("알림");
+        builder.setMessage( str + "을 선택해주세요.");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 
     private void showDialog(String str, final EditText et){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
+        builder.setMessage( str + "을(를) 기입해주세요.");
 
-        if(str.equals("성별") || str.equals("연령")){
-            builder.setMessage( str + "을 선택해주세요.");
-        } else {
-            builder.setMessage( str + "을(를) 기입해주세요.");
-        }
-
-        builder.setPositiveButton("확인",
-                new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // 해당 position으로 focus 이동 후 키보드 올리기
