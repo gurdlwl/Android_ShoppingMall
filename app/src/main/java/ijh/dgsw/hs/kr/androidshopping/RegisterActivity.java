@@ -18,28 +18,35 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import ijh.dgsw.hs.kr.androidshopping.Database.DBHelper;
+import ijh.dgsw.hs.kr.androidshopping.Database.UserBean;
+
 public class RegisterActivity extends AppCompatActivity {
 
-    Spinner yearsSpinner;
-    ArrayAdapter adapter;
+    private static final String EMPTY_STRING = "";
 
-    EditText name;
-    EditText email;
-    EditText id;
-    EditText pw;
-    EditText pwChk;
-    RadioGroup gender;
-    RadioButton male;
-    RadioButton female;
+    private Spinner yearsSpinner;
+    private ArrayAdapter adapter;
 
-    final String EmptyStr = "";
-    String selectYears = "";
-    String selectGender = "";
+    private EditText name;
+    private EditText email;
+    private EditText id;
+    private EditText pw;
+    private EditText pwChk;
+    private RadioGroup gender;
+    private RadioButton male;
+    private RadioButton female;
+
+    private String selectYears = "";
+    private String selectGender = "";
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        dbHelper = new DBHelper(this, "userdb", null, 1);
 
         name = findViewById(R.id.nameEt);
         email = findViewById(R.id.emailEt);
@@ -63,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
         gender.setOnCheckedChangeListener(listener);
 
-        yearsSpinner = (Spinner)findViewById(R.id.yearsSppiner);
+        yearsSpinner = (Spinner) findViewById(R.id.yearsSppiner);
         adapter = ArrayAdapter.createFromResource(this, R.array.yearsArray, android.R.layout.simple_spinner_dropdown_item);
         yearsSpinner.setAdapter(adapter);
 
@@ -72,26 +79,36 @@ public class RegisterActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectYears = yearsSpinner.getSelectedItem().toString();
                 if(selectYears.equals("선택")){
-                    selectYears = EmptyStr;
+                    selectYears = EMPTY_STRING;
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         });
     }
 
     public void onOkBtnClick(View v){
-        if(!emptyCheck()) {
+        if(!isEmpty()) {
             // DB에 값 집어넣기
+            UserBean userBean = new UserBean();
 
+            userBean.setName(String.valueOf(name.getText()));
+            userBean.setEmail(String.valueOf(email.getText()));
+            userBean.setId(String.valueOf(id.getText()));
+            userBean.setPassword(String.valueOf(pw.getText()));
+            userBean.setGender(Integer.valueOf(selectGender));
+            userBean.setYears(Integer.valueOf(selectYears));
+
+            dbHelper.insert(userBean);
+
+            //alertDialog 띄워주기
+            onBackPressed();
         }
     }
 
     public void onCancelBtnClick(View v){
-        // 진짜 뒤로갈거냐 확인하기
+        // 진짜 뒤로갈건지 확인하기
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage("회원가입을 취소하시겠습니까?");
@@ -103,16 +120,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
         builder.setNegativeButton("아니오",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
+                new DialogInterface.OnClickListener() {@Override public void onClick(DialogInterface dialog, int which) { }});
         builder.show();
     }
 
-    private boolean emptyCheck(){
+    private boolean isEmpty(){
         if(TextUtils.isEmpty(name.getText())){
             showDialog("이름", name);
             return true;
@@ -135,9 +147,11 @@ public class RegisterActivity extends AppCompatActivity {
         }
         else if(TextUtils.isEmpty(selectGender)){
             showDialog("성별");
+            return true;
         }
         else if(TextUtils.isEmpty(selectYears)){
             showDialog("연령");
+            return true;
         }
 
         return false;
@@ -148,11 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.setTitle("알림");
         builder.setMessage( str + "을 선택해주세요.");
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
+            @Override public void onClick(DialogInterface dialog, int which) { }});
         builder.show();
     }
 
