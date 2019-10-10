@@ -92,23 +92,34 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onOkBtnClick(View v){
-        if(!isEmpty()) {
-            // DB에 값 집어넣기
-            UserBean userBean = new UserBean();
-
-            userBean.setName(String.valueOf(name.getText()));
-            userBean.setEmail(String.valueOf(email.getText()));
-            userBean.setId(String.valueOf(id.getText()));
-            userBean.setPassword(String.valueOf(pw.getText()));
-            userBean.setGender(String.valueOf(selectGender));
-            userBean.setYears(String.valueOf(selectYears));
-
-            dbHelper.insert(userBean);
-            showUsers();
-
-            //alertDialog 띄워주기
-            onBackPressed();
+        if(isEmpty()) { // 비어있는 칸 없는지 확인. 있으면 true 반환
+           return;
         }
+        if(isDuplicateId()){ // ID값 중복된 것 있는지 확인. 있으면 true 반환
+            Toast.makeText(this, "이미 있는 ID 입니다. ID를 변경해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!isCorreectPw()){ // PW, PwChk 값 같은지 확인. 같으면 true 반환
+            Toast.makeText(this, "비밀번호와 비밀번호 확인의 값이 다릅니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // DB에 값 집어넣기
+        UserBean userBean = new UserBean();
+
+        userBean.setName(String.valueOf(name.getText()));
+        userBean.setEmail(String.valueOf(email.getText()));
+        userBean.setId(String.valueOf(id.getText()));
+        userBean.setPassword(String.valueOf(pw.getText()));
+        userBean.setGender(String.valueOf(selectGender));
+        userBean.setYears(String.valueOf(selectYears));
+
+        dbHelper.insert(userBean);
+        showUsers();
+
+        //alertDialog 띄워주기
+
+        finish();
     }
 
     public void onCancelBtnClick(View v){
@@ -120,12 +131,35 @@ public class RegisterActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
+                        finish();
                     }
                 });
         builder.setNegativeButton("아니오",
                 new DialogInterface.OnClickListener() {@Override public void onClick(DialogInterface dialog, int which) { }});
         builder.show();
+    }
+
+    private boolean isDuplicateId(){
+        String dbId = dbHelper.getUserId(String.valueOf(id.getText()));
+
+        if(dbId.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isCorreectPw(){
+        String pwValue = String.valueOf(pw.getText());
+        String pwChkValue = String.valueOf(pwChk.getText());
+
+        if(pwValue.equals(pwChkValue)){
+            return true;
+        }
+
+        pw.setText("");
+        pwChk.setText("");
+
+        return false;
     }
 
     private boolean isEmpty(){
@@ -191,7 +225,7 @@ public class RegisterActivity extends AppCompatActivity {
         ArrayList<UserBean> userBean = dbHelper.getAll();
 
         for(UserBean u : userBean){
-            String msg = "[ " + u.getSerialNumber() + ", " + u.getId() + ", " + u.getName() + ", " + u.getEmail() + " ]";
+            String msg = "[ " + u.getSerialNumber() + " ] " + u.getId() + ", " + u.getName() + ", " + u.getEmail();
             Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }

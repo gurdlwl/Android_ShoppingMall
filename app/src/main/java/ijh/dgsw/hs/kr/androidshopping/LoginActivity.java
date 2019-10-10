@@ -9,6 +9,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -23,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout loginForm;
     private DBHelper dbHelper;
 
+    private EditText id;
+    private EditText pw;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
 
         imgView = findViewById(R.id.logoImg);
         loginForm = findViewById(R.id.loginfrom_view);
+        id = findViewById(R.id.idEt);
+        pw = findViewById(R.id.pwEt);
 
         startAnime();
     }
@@ -55,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onLogin(View v){
         // 로그인 id, pw 확인 후 일치 확인, 이후 main Activity로 이동
         if(!accountCheck()){
-            Toast.makeText(this, "아이디와 비밀번호를 확인 해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -71,7 +76,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean accountCheck(){
         //db에 접근해서 id, pw 확인 후 일치 시 true, 불일치시 false return.
+        String idValue = String.valueOf(id.getText());
+        String pwValue = String.valueOf(id.getText());
 
+        String dbId = dbHelper.getUserId(idValue);
+        String dbPw = dbHelper.getUserPw(pwValue);
+
+        if(dbId.equals(idValue)){
+            if(dbPw.equals(pwValue)){
+                return true;
+            }
+            Toast.makeText(this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        Toast.makeText(this, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
         return false;
     }
 

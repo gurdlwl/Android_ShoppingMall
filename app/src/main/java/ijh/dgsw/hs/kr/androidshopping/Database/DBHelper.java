@@ -94,6 +94,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public String getUserPw(String id){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COL_3 + "=?", new String[] {id}, null, null, null);
+        String result = "";
+
+        while(cursor.moveToNext()){
+            result = cursor.getString(cursor.getColumnIndex(COL_4));
+        }
+
+        return result;
+    }
+
     public long delete(UserBean bean){
         SQLiteDatabase db = getWritableDatabase();
         String serial = String.valueOf(bean.getSerialNumber());
