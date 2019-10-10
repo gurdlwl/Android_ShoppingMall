@@ -34,8 +34,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COL_2 + " text not null check (email like '%@%'),"
                 + COL_3 + " text not null unique,"
                 + COL_4 + " text not null,"
-                + COL_5 + " integer,"
-                + COL_6 + " integer "
+                + COL_5 + " text not null,"
+                + COL_6 + " text not null "
                 + ")";
 
         db.execSQL(sql);
@@ -74,8 +74,8 @@ public class DBHelper extends SQLiteOpenHelper {
             user.setEmail(cursor.getString(cursor.getColumnIndex(COL_2)));
             user.setId(cursor.getString(cursor.getColumnIndex(COL_3)));
             user.setPassword(cursor.getString(cursor.getColumnIndex(COL_4)));
-            user.setGender(cursor.getInt(cursor.getColumnIndex(COL_5)));
-            user.setYears(cursor.getInt(cursor.getColumnIndex(COL_6)));
+            user.setGender(cursor.getString(cursor.getColumnIndex(COL_5)));
+            user.setYears(cursor.getString(cursor.getColumnIndex(COL_6)));
             result.add(user);
         }
 

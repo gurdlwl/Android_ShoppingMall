@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -17,6 +18,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Database.DBHelper;
 import ijh.dgsw.hs.kr.androidshopping.Database.UserBean;
@@ -97,10 +100,11 @@ public class RegisterActivity extends AppCompatActivity {
             userBean.setEmail(String.valueOf(email.getText()));
             userBean.setId(String.valueOf(id.getText()));
             userBean.setPassword(String.valueOf(pw.getText()));
-            userBean.setGender(Integer.valueOf(selectGender));
-            userBean.setYears(Integer.valueOf(selectYears));
+            userBean.setGender(String.valueOf(selectGender));
+            userBean.setYears(String.valueOf(selectYears));
 
             dbHelper.insert(userBean);
+            showUsers();
 
             //alertDialog 띄워주기
             onBackPressed();
@@ -181,5 +185,14 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
         builder.show();
+    }
+
+    private void showUsers() {
+        ArrayList<UserBean> userBean = dbHelper.getAll();
+
+        for(UserBean u : userBean){
+            String msg = "[ " + u.getSerialNumber() + ", " + u.getId() + ", " + u.getName() + ", " + u.getEmail() + " ]";
+            Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
+        }
     }
 }

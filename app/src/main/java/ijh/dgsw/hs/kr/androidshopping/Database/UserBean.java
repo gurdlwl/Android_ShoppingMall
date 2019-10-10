@@ -6,8 +6,8 @@ public class UserBean {
     private String email;
     private String id;
     private String password;
-    private int gender;
-    private int years;
+    private String gender;
+    private String years;
 
     public int getSerialNumber() {
         return serialNumber;
@@ -49,19 +49,19 @@ public class UserBean {
         this.password = password;
     }
 
-    public int getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public int getYears() {
+    public String getYears() {
         return years;
     }
 
-    public void setYears(int years) {
+    public void setYears(String years) {
         this.years = years;
     }
 }
