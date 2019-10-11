@@ -159,6 +159,8 @@ public class RegisterActivity extends AppCompatActivity {
         pw.setText("");
         pwChk.setText("");
 
+        moveFocus(pw);
+
         return false;
     }
 
@@ -212,10 +214,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 해당 position으로 focus 이동 후 키보드 올리기
-                        et.requestFocus();
-                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                        moveFocus(et);
                     }
                 });
         builder.show();
@@ -228,5 +227,12 @@ public class RegisterActivity extends AppCompatActivity {
             String msg = "[ " + u.getSerialNumber() + " ] " + u.getId() + ", " + u.getName() + ", " + u.getEmail();
             Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void moveFocus(EditText et){
+        // 해당 position으로 focus 이동 후 키보드 올리기
+        et.requestFocus();
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 }

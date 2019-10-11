@@ -77,13 +77,14 @@ public class LoginActivity extends AppCompatActivity {
     private boolean accountCheck(){
         //db에 접근해서 id, pw 확인 후 일치 시 true, 불일치시 false return.
         String idValue = String.valueOf(id.getText());
-        String pwValue = String.valueOf(id.getText());
+        String pwValue = String.valueOf(pw.getText());
 
         String dbId = dbHelper.getUserId(idValue);
-        String dbPw = dbHelper.getUserPw(pwValue);
+        String dbPw = dbHelper.getUserPw(idValue);
 
         if(dbId.equals(idValue)){
             if(dbPw.equals(pwValue)){
+                Toast.makeText(this, "환영합니다.", Toast.LENGTH_SHORT).show();
                 return true;
             }
             Toast.makeText(this, "비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
