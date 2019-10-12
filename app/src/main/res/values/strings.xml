@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidShopping</string>
+    <string name="app_name">Shop!</string>
     <string name="id">아이디</string>
     <string name="pw">비밀번호</string>
     <string name="login">로그인</string>

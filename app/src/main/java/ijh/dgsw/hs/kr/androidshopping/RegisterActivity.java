@@ -103,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "비밀번호와 비밀번호 확인의 값이 다릅니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
+        // Email 포맷 체크, %@% 아니면 DB에 안들어감.
 
         // DB에 값 집어넣기
         UserBean userBean = new UserBean();
@@ -115,7 +116,8 @@ public class RegisterActivity extends AppCompatActivity {
         userBean.setYears(String.valueOf(selectYears));
 
         dbHelper.insert(userBean);
-        showUsers();
+        // showUsers();
+        Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
         //alertDialog 띄워주기
 
@@ -220,6 +222,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /*
     private void showUsers() {
         ArrayList<UserBean> userBean = dbHelper.getAll();
 
@@ -228,6 +231,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
         }
     }
+    */
 
     private void moveFocus(EditText et){
         // 해당 position으로 focus 이동 후 키보드 올리기

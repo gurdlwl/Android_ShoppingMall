@@ -64,12 +64,14 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        setEmptyEt();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     public void onRegister(View v){
         // register Activity로 이동
+        setEmptyEt();
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
@@ -78,6 +80,10 @@ public class LoginActivity extends AppCompatActivity {
         //db에 접근해서 id, pw 확인 후 일치 시 true, 불일치시 false return.
         String idValue = String.valueOf(id.getText());
         String pwValue = String.valueOf(pw.getText());
+
+        if(idValue.equals("") || pwValue.equals("")){
+            return false;
+        }
 
         String dbId = dbHelper.getUserId(idValue);
         String dbPw = dbHelper.getUserPw(idValue);
@@ -91,8 +97,14 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
 
-        Toast.makeText(this, "아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+        setEmptyEt();
+        Toast.makeText(this, "존재하지 않는 아이디입니다.", Toast.LENGTH_SHORT).show();
         return false;
+    }
+
+    private void setEmptyEt(){
+        id.setText("");
+        pw.setText("");
     }
 
     // 만약 로그인 되어있는 경우라면, 2초동안 로고만 보여준 후 바로 메인화면으로 이동
