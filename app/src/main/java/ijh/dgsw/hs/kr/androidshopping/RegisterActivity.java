@@ -2,13 +2,10 @@ package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -19,10 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
-import ijh.dgsw.hs.kr.androidshopping.Database.DBHelper;
 import ijh.dgsw.hs.kr.androidshopping.Database.UserBean;
+import ijh.dgsw.hs.kr.androidshopping.Database.UserDBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -42,14 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String selectYears = "";
     private String selectGender = "";
-    private DBHelper dbHelper;
+    private UserDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        dbHelper = new DBHelper(this, "userdb", null, 1);
+        dbHelper = UserDBHelper.getInstance(getApplicationContext());
 
         name = findViewById(R.id.nameEt);
         email = findViewById(R.id.emailEt);
@@ -71,6 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         };
+
         gender.setOnCheckedChangeListener(listener);
 
         yearsSpinner = (Spinner) findViewById(R.id.yearsSppiner);

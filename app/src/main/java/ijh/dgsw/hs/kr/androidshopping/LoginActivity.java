@@ -1,20 +1,20 @@
 package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import ijh.dgsw.hs.kr.androidshopping.Database.DBHelper;
+import ijh.dgsw.hs.kr.androidshopping.Database.UserDBHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private Animation loginFormAni; // 투명도 조절
     private ImageView imgView;
     private LinearLayout loginForm;
-    private DBHelper dbHelper;
+    private UserDBHelper dbHelper;
+    private SQLiteDatabase db;
 
     private EditText id;
     private EditText pw;
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        dbHelper = new DBHelper(this, "userdb", null, 1);
+        dbHelper = UserDBHelper.getInstance(getApplicationContext());
 
         imgView = findViewById(R.id.logoImg);
         loginForm = findViewById(R.id.loginfrom_view);
@@ -65,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         setEmptyEt();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
@@ -72,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onRegister(View v){
         // register Activity로 이동
         setEmptyEt();
+
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }

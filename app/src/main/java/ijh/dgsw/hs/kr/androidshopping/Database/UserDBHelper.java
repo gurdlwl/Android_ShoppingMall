@@ -9,9 +9,13 @@ import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class UserDBHelper extends SQLiteOpenHelper {
 
+    private static UserDBHelper dbHelper = null;
+
+    public static final String DATABASE_NAME = "userdb";
     public static final String TABLE_NAME = "user";
+    public static final int DB_VERSION = 1;
 
     public static final String COL_0 = "serialNumber";
     public static final String COL_1 = "name";
@@ -21,10 +25,23 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_5 = "gender";
     public static final String COL_6 = "years";
 
+    public static UserDBHelper getInstance(Context context){
+        if(dbHelper == null){
+            dbHelper = new UserDBHelper(context.getApplicationContext());
+        }
+
+        return dbHelper;
+    }
+
+    private UserDBHelper(Context context){
+        super(context, DATABASE_NAME, null, DB_VERSION);
+    }
+
+    /*
     public DBHelper(@Nullable Context context, @Nullable String name,
                     @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
-    }
+    }*/
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -62,7 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.insert(TABLE_NAME, null, value);
     }
 
-    public ArrayList<UserBean> getAll(){
+    public ArrayList<UserBean> getAllUser(){
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
         ArrayList<UserBean> result = new ArrayList<>();
@@ -89,6 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         while(cursor.moveToNext()){
             UserBean user = new UserBean();
+
             user.setSerialNumber(cursor.getInt(cursor.getColumnIndex(COL_0)));
             user.setName(cursor.getString(cursor.getColumnIndex(COL_1)));
             user.setEmail(cursor.getString(cursor.getColumnIndex(COL_2)));
@@ -96,6 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
             user.setPassword(cursor.getString(cursor.getColumnIndex(COL_4)));
             user.setGender(cursor.getString(cursor.getColumnIndex(COL_5)));
             user.setYears(cursor.getString(cursor.getColumnIndex(COL_6)));
+
             result.add(user);
         }
 
