@@ -65,7 +65,7 @@ public class UserDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insert(UserBean user){
+    public long insertUser(UserBean user){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues value = new ContentValues();
 
@@ -145,14 +145,14 @@ public class UserDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public long delete(UserBean bean){
+    public long deleteUser(UserBean bean){
         SQLiteDatabase db = getWritableDatabase();
         String serial = String.valueOf(bean.getSerialNumber());
 
         return db.delete(TABLE_NAME, COL_0 + "=?", new String[] {serial});
     }
 
-    public long delete(){
+    public long deleteUser(){
         SQLiteDatabase db = getWritableDatabase();
 
         return db.delete(TABLE_NAME, null, null);

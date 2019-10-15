@@ -111,7 +111,7 @@ public class RegisterActivity extends AppCompatActivity {
         userBean.setGender(String.valueOf(selectGender));
         userBean.setYears(String.valueOf(selectYears));
 
-        dbHelper.insert(userBean);
+        dbHelper.insertUser(userBean);
         // showUsers();
         Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 

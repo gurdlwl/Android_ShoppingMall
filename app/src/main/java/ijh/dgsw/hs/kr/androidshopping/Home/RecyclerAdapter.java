@@ -1,6 +1,12 @@
 package ijh.dgsw.hs.kr.androidshopping.Home;
 
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +37,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         ProductBean productBean = data.get(i);
+
+        viewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
         viewHolder.productName.setText(productBean.getName());
         viewHolder.productPrice.setText(String.valueOf(productBean.getPrice()));
 
@@ -46,5 +54,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{
             return 0;
         else
             return data.size();
+    }
+
+    public Drawable getImage(byte[] bytes){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        Drawable drawable = new BitmapDrawable(null, bitmap);
+        return drawable;
     }
 }

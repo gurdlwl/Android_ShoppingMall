@@ -5,6 +5,7 @@ public class ProductBean {
     private int id;
     private String name;
     private int price;
+    private byte[] image;
 
     public int getSerialNumber() {
         return serialNumber;
@@ -36,5 +37,13 @@ public class ProductBean {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

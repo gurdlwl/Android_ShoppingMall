@@ -5,4 +5,5 @@
     <color name="colorAccent">#3c49de</color>
     <color name="colorEditTextBg">#e6e6e6</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorRed">#ff4343</color>
 </resources>

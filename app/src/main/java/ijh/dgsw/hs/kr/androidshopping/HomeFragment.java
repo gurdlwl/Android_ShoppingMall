@@ -2,6 +2,10 @@ package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Database.ProductBean;
@@ -47,7 +52,6 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         for(int image : images)
             flipperImages(image);
 
-
         showProduct();
 
         return rootView;
@@ -80,12 +84,12 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     }
 
     private void initProduct(){
-        init("product", 1, "청자켓", 73000);
-        init("product", 2,"청바지", 56000);
-        init("product", 3, "무스탕", 130000);
-        init("product", 4, "신발", 69000);
-        init("product", 5, "팔찌", 12900);
-        init("product", 6, "맨투맨", 25900);
+        init("product", 1, "청자켓", 73000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_blue_jacket, null)));
+        init("product", 2,"청바지", 56000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_deepblue_jean, null)));
+        init("product", 3, "무스탕", 130000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_black_mustang, null)));
+        init("product", 4, "신발", 69000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_shoes, null)));
+        init("product", 5, "팔찌", 12900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_bracelet, null)));
+        init("product", 6, "맨투맨", 25900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_beige_mantoman, null)));
     }
 
     @Override
@@ -93,11 +97,22 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         // click 했을 때 일어날 일. ex) 상품 상세화면
     }
 
-    private void init(String tableName, int id, String pName, int pPrice){
+    private void init(String tableName, int id, String pName, int pPrice, byte[] pImage){
         ContentValues values = new ContentValues();
         values.put("id", id);
         values.put("name", pName);
         values.put("price", pPrice);
+        values.put("image", pImage);
         db.insert("product", null, values);
+    }
+
+    // drawable 이미지를 sqlite에 넣기 위해 byteArray로 변환하는 함수
+    private byte[] getByteArrayFromDrawable(Drawable drawable){
+        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] dataByte = stream.toByteArray();
+
+        return dataByte;
     }
 }

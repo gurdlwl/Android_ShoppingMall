@@ -1,5 +1,6 @@
 package ijh.dgsw.hs.kr.androidshopping;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ public class MyFragment extends Fragment {
     private TextView userEmail;
     private TextView userGender;
     private TextView userYears;
+    private TextView logout;
     private UserDBHelper dbHelper;
 
 
@@ -32,8 +34,17 @@ public class MyFragment extends Fragment {
         userEmail = rootView.findViewById(R.id.useremailTv);
         userGender = rootView.findViewById(R.id.usergenderTv);
         userYears = rootView.findViewById(R.id.useryearsTv);
+        logout = rootView.findViewById(R.id.logoutTv);
 
         dbHelper = UserDBHelper.getInstance(getContext());
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 로그아웃 할거야? alert dialog 띄우기.
+                ((MainActivity)getActivity()).finish();
+            }
+        });
 
         return rootView;
     }
