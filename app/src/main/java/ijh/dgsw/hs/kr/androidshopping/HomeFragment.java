@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
-import ijh.dgsw.hs.kr.androidshopping.HomeRecycler.RecyclerAdapter;
+import ijh.dgsw.hs.kr.androidshopping.HomeRecycler.HomeRecyclerAdapter;
 
 public class HomeFragment extends Fragment implements ItemClickListener {
     private static final int INTERVAL_TIME = 3800;
@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private View rootView;
     private ViewFlipper viewFlipper;
     private RecyclerView recyclerView;
-    private RecyclerAdapter adapter;
+    private HomeRecyclerAdapter adapter;
     private ArrayList<ProductBean> data;
     private ProductDBHelper dbHelper;
     private SQLiteDatabase db;
@@ -76,18 +76,19 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         data = dbHelper.getAllProduct();
         db = dbHelper.getWritableDatabase();
 
+        dbHelper.deleteAllProduct();
         initProduct();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter(data, this);
+        adapter = new HomeRecyclerAdapter(data, this);
         recyclerView.setAdapter(adapter);
     }
 
     private void initProduct(){
         init("product", 1, "청자켓", 73000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_blue_jacket, null)), "top");
-        init("product", 2,"청바지", 56000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_deepblue_jean, null)), "bottom");
+        init("product", 2,"진청바지", 56000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_deepblue_jean, null)), "bottom");
         init("product", 3, "무스탕", 130000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_black_mustang, null)), "top");
         init("product", 4, "신발", 69000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_shoes, null)), "acc");
         init("product", 5, "팔찌", 12900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_bracelet, null)), "acc");
@@ -101,7 +102,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         values.put("price", pPrice);
         values.put("image", pImage);
         values.put("type", type);
-        db.insert("product", null, values);
+        db.insert(tableName, null, values);
     }
 
     // drawable 이미지를 sqlite에 넣기 위해 byteArray로 변환하는 함수

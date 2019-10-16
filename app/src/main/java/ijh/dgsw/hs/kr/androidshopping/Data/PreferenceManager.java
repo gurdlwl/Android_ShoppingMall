@@ -3,7 +3,7 @@ package ijh.dgsw.hs.kr.androidshopping.Data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class PreferanceManager {
+public class PreferenceManager {
     public static final String PREFERENCES_NAME = "user_info";
     private static final String DEFAULT_VALUE_STRING = "";
 

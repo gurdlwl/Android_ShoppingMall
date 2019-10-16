@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ijh.dgsw.hs.kr.androidshopping.Data.PreferanceManager;
+import ijh.dgsw.hs.kr.androidshopping.Data.PreferenceManager;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
@@ -26,13 +26,12 @@ public class MyFragment extends Fragment {
     private TextView userYears;
     private TextView logout;
     private UserDBHelper dbHelper;
-    private PreferanceManager pManager;
-
+    private PreferenceManager pManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_my_fragment, container, false);
 
-        pManager = new PreferanceManager();
+        pManager = new PreferenceManager();
         userName = rootView.findViewById(R.id.usernameTv);
         userName2 = rootView.findViewById(R.id.usernameTv2);
         userId = rootView.findViewById(R.id.useridTv);
@@ -60,6 +59,8 @@ public class MyFragment extends Fragment {
                 ((MainActivity)getActivity()).finish();
             }
         });
+
+        // 회원탈퇴 구현
 
         return rootView;
     }

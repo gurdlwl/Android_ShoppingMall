@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import ijh.dgsw.hs.kr.androidshopping.Data.PreferanceManager;
+import ijh.dgsw.hs.kr.androidshopping.Data.PreferenceManager;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout loginForm;
     private UserDBHelper dbHelper;
     private SQLiteDatabase db;
-    private PreferanceManager pManager;
+    private PreferenceManager pManager;
 
 
     private EditText id;
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         dbHelper = UserDBHelper.getInstance(getApplicationContext());
-        pManager = new PreferanceManager();
+        pManager = new PreferenceManager();
 
         imgView = findViewById(R.id.logoImg);
         loginForm = findViewById(R.id.loginfrom_view);

@@ -90,4 +90,9 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
         return result;
     }
+
+    public long deleteAllProduct(){
+        SQLiteDatabase db = getWritableDatabase();
+        return db.delete(TABLE_NAME, null, null);
+    }
 }
