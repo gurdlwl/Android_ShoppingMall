@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.Database;
+package ijh.dgsw.hs.kr.androidshopping.Data;
 
 public class UserBean {
     private int serialNumber;

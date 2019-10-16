@@ -1,8 +1,6 @@
-package ijh.dgsw.hs.kr.androidshopping.Home;
+package ijh.dgsw.hs.kr.androidshopping.HomeRecycler;
 
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,7 +13,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import ijh.dgsw.hs.kr.androidshopping.Database.ProductBean;
+import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
+import ijh.dgsw.hs.kr.androidshopping.ItemClickListener;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<ViewHolder>{

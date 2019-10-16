@@ -1,11 +1,10 @@
-package ijh.dgsw.hs.kr.androidshopping.Database;
+package ijh.dgsw.hs.kr.androidshopping.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -150,11 +149,5 @@ public class UserDBHelper extends SQLiteOpenHelper {
         String serial = String.valueOf(bean.getSerialNumber());
 
         return db.delete(TABLE_NAME, COL_0 + "=?", new String[] {serial});
-    }
-
-    public long deleteUser(){
-        SQLiteDatabase db = getWritableDatabase();
-
-        return db.delete(TABLE_NAME, null, null);
     }
 }

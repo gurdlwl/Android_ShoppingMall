@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.Home;
+package ijh.dgsw.hs.kr.androidshopping;
 
 import android.view.View;
 

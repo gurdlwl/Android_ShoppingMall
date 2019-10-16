@@ -52,13 +52,12 @@ public class MainActivity extends AppCompatActivity {
                     transaction.replace(R.id.frameLayout, myFragment).commitAllowingStateLoss();
                     break;
             }
-
             return true;
         }
     }
 
     @Override
     public void onBackPressed() {
-        ActivityCompat.finishAffinity(this);
+        ActivityCompat.finishAffinity(this); // app 종료
     }
 }

@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.Database;
+package ijh.dgsw.hs.kr.androidshopping.Data;
 
 public class ProductBean {
     private int serialNumber;
@@ -6,6 +6,7 @@ public class ProductBean {
     private String name;
     private int price;
     private byte[] image;
+    private String type;
 
     public int getSerialNumber() {
         return serialNumber;
@@ -45,5 +46,13 @@ public class ProductBean {
 
     public void setImage(byte[] image) {
         this.image = image;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

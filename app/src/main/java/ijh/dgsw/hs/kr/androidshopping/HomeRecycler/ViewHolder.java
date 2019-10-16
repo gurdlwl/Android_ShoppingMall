@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.Home;
+package ijh.dgsw.hs.kr.androidshopping.HomeRecycler;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

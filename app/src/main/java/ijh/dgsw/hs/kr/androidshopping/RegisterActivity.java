@@ -16,8 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import ijh.dgsw.hs.kr.androidshopping.Database.UserBean;
-import ijh.dgsw.hs.kr.androidshopping.Database.UserDBHelper;
+import ijh.dgsw.hs.kr.androidshopping.Data.UserBean;
+import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
 

@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import ijh.dgsw.hs.kr.androidshopping.Database.UserDBHelper;
+import ijh.dgsw.hs.kr.androidshopping.Data.PreferanceManager;
+import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -24,10 +25,11 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout loginForm;
     private UserDBHelper dbHelper;
     private SQLiteDatabase db;
+    private PreferanceManager pManager;
+
 
     private EditText id;
     private EditText pw;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +37,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         dbHelper = UserDBHelper.getInstance(getApplicationContext());
+        pManager = new PreferanceManager();
 
         imgView = findViewById(R.id.logoImg);
         loginForm = findViewById(R.id.loginfrom_view);
         id = findViewById(R.id.idEt);
         pw = findViewById(R.id.pwEt);
 
+        loginCheck();
         startAnime();
     }
 
@@ -59,16 +63,24 @@ public class LoginActivity extends AppCompatActivity {
         loginForm.setAnimation(loginFormAni);
     }
 
+    public void loginCheck(){
+        String loginId = pManager.getString(this, "user_id");
+
+        if(loginId.length() != 0){
+            startMainActivity();
+        }
+    }
+
     public void onLogin(View v){
         // 로그인 id, pw 확인 후 일치 확인, 이후 main Activity로 이동
         if(!accountCheck()){
             return;
         }
 
-        setEmptyEt();
+        pManager.setString(this, "user_id", String.valueOf(id.getText()));
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        setEmptyEt();
+        startMainActivity();
     }
 
     public void onRegister(View v){
@@ -76,6 +88,11 @@ public class LoginActivity extends AppCompatActivity {
         setEmptyEt();
 
         Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
@@ -109,6 +126,4 @@ public class LoginActivity extends AppCompatActivity {
         id.setText("");
         pw.setText("");
     }
-
-    // 만약 로그인 되어있는 경우라면, 2초동안 로고만 보여준 후 바로 메인화면으로 이동
 }

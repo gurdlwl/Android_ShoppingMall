@@ -2,7 +2,6 @@ package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,10 +20,9 @@ import android.widget.ViewFlipper;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import ijh.dgsw.hs.kr.androidshopping.Database.ProductBean;
-import ijh.dgsw.hs.kr.androidshopping.Database.ProductDBHelper;
-import ijh.dgsw.hs.kr.androidshopping.Home.ItemClickListener;
-import ijh.dgsw.hs.kr.androidshopping.Home.RecyclerAdapter;
+import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
+import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
+import ijh.dgsw.hs.kr.androidshopping.HomeRecycler.RecyclerAdapter;
 
 public class HomeFragment extends Fragment implements ItemClickListener {
     private static final int INTERVAL_TIME = 3800;
@@ -44,7 +42,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
             R.drawable.slide_image_4
     };
 
-    // 메인. 슬라이드 형식 화면 절반치 광고, 랜덤 상품 아래에 6개 정도 보여주기
+    // 메인. 슬라이드 형식 화면 절반치 광고, 아래에 상품 6개 정도 보여주기
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_home_fragment, container, false);
         viewFlipper = rootView.findViewById(R.id.imageSlide);
@@ -52,9 +50,13 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         for(int image : images)
             flipperImages(image);
 
-        showProduct();
-
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        showProduct();
     }
 
     private void flipperImages(int image){
@@ -84,25 +86,21 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     }
 
     private void initProduct(){
-        init("product", 1, "청자켓", 73000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_blue_jacket, null)));
-        init("product", 2,"청바지", 56000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_deepblue_jean, null)));
-        init("product", 3, "무스탕", 130000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_black_mustang, null)));
-        init("product", 4, "신발", 69000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_shoes, null)));
-        init("product", 5, "팔찌", 12900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_bracelet, null)));
-        init("product", 6, "맨투맨", 25900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_beige_mantoman, null)));
+        init("product", 1, "청자켓", 73000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_blue_jacket, null)), "top");
+        init("product", 2,"청바지", 56000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_deepblue_jean, null)), "bottom");
+        init("product", 3, "무스탕", 130000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_black_mustang, null)), "top");
+        init("product", 4, "신발", 69000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_shoes, null)), "acc");
+        init("product", 5, "팔찌", 12900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_bracelet, null)), "acc");
+        init("product", 6, "맨투맨", 25900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_beige_mantoman, null)), "top");
     }
 
-    @Override
-    public void onItemClick(View v, int position) {
-        // click 했을 때 일어날 일. ex) 상품 상세화면
-    }
-
-    private void init(String tableName, int id, String pName, int pPrice, byte[] pImage){
+    private void init(String tableName, int id, String pName, int pPrice, byte[] pImage, String type){
         ContentValues values = new ContentValues();
         values.put("id", id);
         values.put("name", pName);
         values.put("price", pPrice);
         values.put("image", pImage);
+        values.put("type", type);
         db.insert("product", null, values);
     }
 
@@ -114,5 +112,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         byte[] dataByte = stream.toByteArray();
 
         return dataByte;
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+        // click 했을 때 일어날 일. ex) 상품 상세화면
     }
 }

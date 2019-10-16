@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.Database;
+package ijh.dgsw.hs.kr.androidshopping.Data;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+
 
 public class ProductDBHelper extends SQLiteOpenHelper {
 
@@ -21,6 +22,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
     public static final String COL_4 = "image";
+    public static final String COL_5 = "type";
 
     public static ProductDBHelper getInstance(Context context){
         if(dbHelper == null){
@@ -41,7 +43,8 @@ public class ProductDBHelper extends SQLiteOpenHelper {
                 + COL_1 + " integer unique, "
                 + COL_2 + " text not null, "
                 + COL_3 + " integer, "
-                + COL_4 + " blob "
+                + COL_4 + " blob, "
+                + COL_5 + " text not null "
                 + ")";
 
         db.execSQL(sql);
@@ -54,8 +57,6 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-
-
     public long insertProduct(ProductBean product){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -64,6 +65,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         values.put(COL_2, product.getName());
         values.put(COL_3, product.getPrice());
         values.put(COL_4, product.getImage());
+        values.put(COL_5, product.getType());
 
         return db.insert(TABLE_NAME, null, values);
     }
@@ -81,6 +83,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
             product.setName(cursor.getString(cursor.getColumnIndex(COL_2)));
             product.setPrice(cursor.getInt(cursor.getColumnIndex(COL_3)));
             product.setImage(cursor.getBlob(cursor.getColumnIndex(COL_4)));
+            product.setType(cursor.getString(cursor.getColumnIndex(COL_5)));
 
             result.add(product);
         }
