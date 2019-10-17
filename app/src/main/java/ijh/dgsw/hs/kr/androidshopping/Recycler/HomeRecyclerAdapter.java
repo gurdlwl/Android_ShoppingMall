@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.HomeRecycler;
+package ijh.dgsw.hs.kr.androidshopping.Recycler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
-import ijh.dgsw.hs.kr.androidshopping.ItemClickListener;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
 public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder> {

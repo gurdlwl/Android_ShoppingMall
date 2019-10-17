@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.ShopRecycler;
+package ijh.dgsw.hs.kr.androidshopping.Recycler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,32 +15,31 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
-import ijh.dgsw.hs.kr.androidshopping.ItemClickListener;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
-public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapter.ShopViewHolder> {
+public class CartRecyclerAdapter extends RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>{
     private ArrayList<ProductBean> data;
     private ItemClickListener listener;
 
-    public ShopRecyclerAdapter(ArrayList<ProductBean> data, ItemClickListener listener){
+    public CartRecyclerAdapter(ArrayList<ProductBean> data, ItemClickListener listener){
         this.data = data;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ShopViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_item_card, viewGroup, false);
-        return new ShopViewHolder(view);
+    public CartViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.custom_cartitem_card, viewGroup, false);
+        return new CartViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ShopViewHolder shopViewHolder, int i) {
+    public void onBindViewHolder(@NonNull CartViewHolder cartViewHolder, int i) {
         ProductBean productBean = data.get(i);
 
-        shopViewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
-        shopViewHolder.productName.setText(productBean.getName());
-        shopViewHolder.productPrice.setText(String.valueOf(productBean.getPrice()));
+        cartViewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
+        cartViewHolder.productName.setText(productBean.getName());
+        cartViewHolder.productPrice.setText(String.valueOf(productBean.getPrice()));
     }
 
     @Override
@@ -57,12 +56,12 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
         return drawable;
     }
 
-    public class ShopViewHolder extends RecyclerView.ViewHolder{
+    public class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView productImage;
         TextView productName;
         TextView productPrice;
 
-        public ShopViewHolder(@NonNull View itemView) {
+        public CartViewHolder(@NonNull View itemView) {
             super(itemView);
 
             productImage = itemView.findViewById(R.id.imageView);

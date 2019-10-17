@@ -1,10 +1,9 @@
-package ijh.dgsw.hs.kr.androidshopping;
+package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,13 +14,14 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import ijh.dgsw.hs.kr.androidshopping.CartRecycler.CartRecyclerAdapter;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
-import ijh.dgsw.hs.kr.androidshopping.ShopRecycler.SelectRecyclerAdapter;
-import ijh.dgsw.hs.kr.androidshopping.ShopRecycler.ShopRecyclerAdapter;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.ItemClickListener;
+import ijh.dgsw.hs.kr.androidshopping.R;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.SelectRecyclerAdapter;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.ShopRecyclerAdapter;
 
-public class ShopFragment extends Fragment implements ItemClickListener{
+public class ShopFragment extends Fragment implements ItemClickListener {
     private View rootView;
     private RecyclerView recyclerView;
     private SelectRecyclerAdapter tAdapter;
@@ -34,14 +34,10 @@ public class ShopFragment extends Fragment implements ItemClickListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_shop_fragment, container, false);
 
-        return rootView;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         showTypeSelecter();
         showProduct();
+
+        return rootView;
     }
 
     private void showTypeSelecter(){

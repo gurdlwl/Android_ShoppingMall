@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping.ShopRecycler;
+package ijh.dgsw.hs.kr.androidshopping.Recycler;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ijh.dgsw.hs.kr.androidshopping.ItemClickListener;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
 public class SelectRecyclerAdapter extends RecyclerView.Adapter<SelectRecyclerAdapter.SelectViewHolder> {

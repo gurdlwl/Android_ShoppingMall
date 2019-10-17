@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping;
+package ijh.dgsw.hs.kr.androidshopping.Recycler;
 
 import android.view.View;
 

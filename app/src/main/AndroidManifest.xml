@@ -18,10 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ShopFragment" />
-        <activity android:name=".CartFragment" />
-        <activity android:name=".MyFragment" />
-        <activity android:name=".HomeFragment" />
+        <activity android:name=".Fragment.ShopFragment" />
+        <activity android:name=".Fragment.CartFragment" />
+        <activity android:name=".Fragment.MyFragment" />
+        <activity android:name=".Fragment.HomeFragment" />
     </application>
 
 </manifest>

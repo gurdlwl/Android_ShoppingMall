@@ -9,6 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import ijh.dgsw.hs.kr.androidshopping.Fragment.CartFragment;
+import ijh.dgsw.hs.kr.androidshopping.Fragment.HomeFragment;
+import ijh.dgsw.hs.kr.androidshopping.Fragment.MyFragment;
+import ijh.dgsw.hs.kr.androidshopping.Fragment.ShopFragment;
+
 public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private HomeFragment homeFragment = new HomeFragment();

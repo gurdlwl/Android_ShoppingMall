@@ -1,4 +1,4 @@
-package ijh.dgsw.hs.kr.androidshopping;
+package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import ijh.dgsw.hs.kr.androidshopping.Data.PreferenceManager;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
+import ijh.dgsw.hs.kr.androidshopping.MainActivity;
+import ijh.dgsw.hs.kr.androidshopping.R;
 
 public class MyFragment extends Fragment {
     // 이름, 아이디, 이메일, 성별, 나이 알려주기

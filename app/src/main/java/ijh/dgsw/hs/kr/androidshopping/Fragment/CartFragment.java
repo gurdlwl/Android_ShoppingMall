@@ -1,10 +1,9 @@
-package ijh.dgsw.hs.kr.androidshopping;
+package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +13,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import ijh.dgsw.hs.kr.androidshopping.CartRecycler.CartRecyclerAdapter;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.ItemClickListener;
+import ijh.dgsw.hs.kr.androidshopping.R;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.CartRecyclerAdapter;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
 
-public class CartFragment extends Fragment implements ItemClickListener{
+public class CartFragment extends Fragment implements ItemClickListener {
     private View rootView;
     private RecyclerView recyclerView;
     private CartRecyclerAdapter adapter;

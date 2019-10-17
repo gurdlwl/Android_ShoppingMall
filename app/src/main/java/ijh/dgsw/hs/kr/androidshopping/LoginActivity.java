@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private SQLiteDatabase db;
     private PreferenceManager pManager;
 
-
     private EditText id;
     private EditText pw;
 
