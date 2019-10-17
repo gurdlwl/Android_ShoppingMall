@@ -1,6 +1,5 @@
 package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,14 +24,18 @@ import ijh.dgsw.hs.kr.androidshopping.Recycler.SelectRecyclerAdapter;
 import ijh.dgsw.hs.kr.androidshopping.Recycler.ShopRecyclerAdapter;
 
 public class ShopFragment extends Fragment implements ItemClickListener {
+    private static final String TYPE_TOP = "Top";
+    private static final String TYPE_BOTTOM = "Bottom";
+    private static final String TYPE_ACC = "Acc";
+
+
     private View rootView;
     private RecyclerView recyclerView;
     private SelectRecyclerAdapter tAdapter;
+    private String[] tData;
     private ShopRecyclerAdapter pAdapter;
     private ArrayList<ProductBean> pData;
-    private String[] tData;
     private ProductDBHelper dbHelper;
-    private SQLiteDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.activity_shop_fragment, container, false);
@@ -62,8 +68,24 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         recyclerView.setAdapter(pAdapter);
     }
 
+    private void showProduct(String type){
+        pData.clear();
+        pData = dbHelper.getProductbyType(type);
+        Toast.makeText(getContext(), pData.toString(), Toast.LENGTH_SHORT).show();
+        pAdapter.updateData(pData);
+    }
+
     @Override
     public void onItemClick(View v, int position) {
+        String type = String.valueOf(((TextView)(v.findViewById(R.id.typeSelectTv))).getText());
+
+        if(type.equals(TYPE_TOP)){
+            showProduct(type);
+        } else if(type.equals(TYPE_BOTTOM)){
+            showProduct(type);
+        } else if(type.equals(TYPE_ACC)){
+            showProduct(type);
+        }
 
     }
 }

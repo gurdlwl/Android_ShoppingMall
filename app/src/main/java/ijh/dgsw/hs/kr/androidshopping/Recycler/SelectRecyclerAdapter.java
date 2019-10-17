@@ -28,6 +28,11 @@ public class SelectRecyclerAdapter extends RecyclerView.Adapter<SelectRecyclerAd
     @Override
     public void onBindViewHolder(@NonNull SelectViewHolder selectViewHolder, int i) {
         selectViewHolder.typeSelect.setText(data[i]);
+
+        final int index = i;
+        selectViewHolder.typeSelect.setOnClickListener(v ->{
+            listener.onItemClick(v, index);
+        });
     }
 
     @Override

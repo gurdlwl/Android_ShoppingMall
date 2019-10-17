@@ -50,6 +50,11 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
             return data.size();
     }
 
+    public void updateData(ArrayList<ProductBean> data){
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
     public Drawable getImage(byte[] bytes){
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         Drawable drawable = new BitmapDrawable(null, bitmap);

@@ -124,6 +124,27 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public ArrayList<ProductBean> getProductbyType(String type){
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, "type = ?", new String[] {type.toLowerCase()}, null, null, null);
+        ArrayList<ProductBean> result = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            ProductBean product = new ProductBean();
+
+            product.setSerialNumber(cursor.getInt(cursor.getColumnIndex(COL_0)));
+            product.setId(cursor.getInt(cursor.getColumnIndex(COL_1)));
+            product.setName(cursor.getString(cursor.getColumnIndex(COL_2)));
+            product.setPrice(cursor.getInt(cursor.getColumnIndex(COL_3)));
+            product.setImage(cursor.getBlob(cursor.getColumnIndex(COL_4)));
+            product.setType(cursor.getString(cursor.getColumnIndex(COL_5)));
+
+            result.add(product);
+        }
+
+        return result;
+    }
+
     public long deleteAllProduct(){
         SQLiteDatabase db = getWritableDatabase();
         return db.delete(TABLE_NAME, null, null);
