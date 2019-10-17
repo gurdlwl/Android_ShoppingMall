@@ -28,7 +28,7 @@ public class CartFragment extends Fragment implements ItemClickListener{
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(R.layout.activity_cart_fragment, container, false);
+        rootView = inflater.inflate(R.layout.activity_cart_fragment, container, false);
 
         return rootView;
     }

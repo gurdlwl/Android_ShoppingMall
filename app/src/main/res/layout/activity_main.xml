@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:background="@color/colorProductNameBg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

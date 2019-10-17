@@ -93,6 +93,18 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         init("product", 4, "신발", 69000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_shoes, null)), "acc");
         init("product", 5, "팔찌", 12900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.black_bracelet, null)), "acc");
         init("product", 6, "맨투맨", 25900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_beige_mantoman, null)), "top");
+        init("product", 7, "벨트", 15000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.belt, null)), "acc");
+        init("product", 8, "체크바지", 28900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_beige_pants, null)), "bottom");
+        init("product", 9, "슬랙스", 45900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_beige_slacks, null)), "bottom");
+        init("product", 10, "면바지", 38000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_black_pants, null)), "bottom");
+        init("product", 11, "청바지", 61200, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.bottom_blue_jean, null)), "bottom");
+        init("product", 12, "시계", 152000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.clock, null)), "acc");
+        init("product", 13, "에코백", 6900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.echobag, null)), "acc");
+        init("product", 14, "양말", 2500, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.socks, null)), "acc");
+        init("product", 15, "선글라스", 32900, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.sunglass, null)), "acc");
+        init("product", 16, "단가라", 23000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_red_dangara, null)), "top");
+        init("product", 17, "셔츠", 27000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_shirts, null)), "top");
+        init("product", 18, "니트", 29000, getByteArrayFromDrawable(getResources().getDrawable(R.drawable.top_white_neat, null)), "top");
     }
 
     private void init(String tableName, int id, String pName, int pPrice, byte[] pImage, String type){

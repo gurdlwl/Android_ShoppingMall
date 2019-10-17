@@ -9,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.ItemClickListener;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeViewHolder> {
+public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.HomeViewHolder> {
     private ArrayList<ProductBean> data;
     private ItemClickListener listener;
 
@@ -32,19 +35,12 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull HomeViewHolder homeViewHolder, int i) {
         ProductBean productBean = data.get(i);
 
-        viewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
-        viewHolder.productName.setText(productBean.getName());
-        viewHolder.productPrice.setText(String.valueOf(productBean.getPrice()));
-
-        /*
-        final int index = i;
-        viewHolder.itemView.setOnClickListener(v->{
-            listener.onItemClick(v, index);
-        });
-        */
+        homeViewHolder.productImage.setImageDrawable(getImage(productBean.getImage()));
+        homeViewHolder.productName.setText(productBean.getName());
+        homeViewHolder.productPrice.setText(String.valueOf(productBean.getPrice()));
     }
 
     @Override
@@ -59,5 +55,19 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeViewHolder> {
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         Drawable drawable = new BitmapDrawable(null, bitmap);
         return drawable;
+    }
+
+    public class HomeViewHolder extends RecyclerView.ViewHolder {
+        ImageView productImage;
+        TextView productName;
+        TextView productPrice;
+
+        public HomeViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            productImage = itemView.findViewById(R.id.imageView);
+            productName = itemView.findViewById(R.id.productNameTv);
+            productPrice = itemView.findViewById(R.id.productPriceTv);
+        }
     }
 }
