@@ -1,10 +1,12 @@
 package ijh.dgsw.hs.kr.androidshopping.Recycler;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ijh.dgsw.hs.kr.androidshopping.BottomSheetDialog;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
@@ -65,6 +68,7 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
         ImageView productImage;
         TextView productName;
         TextView productPrice;
+        private Context context;
 
         public ShopViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +76,15 @@ public class ShopRecyclerAdapter extends RecyclerView.Adapter<ShopRecyclerAdapte
             productImage = itemView.findViewById(R.id.imageView);
             productName = itemView.findViewById(R.id.productNameTv);
             productPrice = itemView.findViewById(R.id.productPriceTv);
+            context = itemView.getContext();
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BottomSheetDialog bottomSheetDialog = BottomSheetDialog.getInsetance();
+                    bottomSheetDialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "bottomSheet");
+                }
+            });
         }
     }
 }

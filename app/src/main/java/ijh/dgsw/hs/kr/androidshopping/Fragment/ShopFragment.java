@@ -2,6 +2,7 @@ package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -71,7 +72,6 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     private void showProduct(String type){
         pData.clear();
         pData = dbHelper.getProductbyType(type);
-        Toast.makeText(getContext(), pData.toString(), Toast.LENGTH_SHORT).show();
         pAdapter.updateData(pData);
     }
 
@@ -86,6 +86,5 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         } else if(type.equals(TYPE_ACC)){
             showProduct(type);
         }
-
     }
 }
