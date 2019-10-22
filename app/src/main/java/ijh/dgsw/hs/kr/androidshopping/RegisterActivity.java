@@ -55,13 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
         male = findViewById(R.id.maleRb);
         female = findViewById(R.id.femaleRb);
 
-        RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener(){
-
+        RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == male.getId()){
+                if(checkedId == male.getId()) {
                     selectGender = String.valueOf(male.getText());
-                } else if (checkedId == female.getId()){
+                } else if (checkedId == female.getId()) {
                     selectGender = String.valueOf(female.getText());
                 }
             }
@@ -77,7 +76,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectYears = yearsSpinner.getSelectedItem().toString();
-                if(selectYears.equals("선택")){
+                if(selectYears.equals("선택")) {
                     selectYears = EMPTY_STRING;
                 }
             }
@@ -87,15 +86,13 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    public void onOkBtnClick(View v){
+    public void onOkBtnClick(View v) {
         if(isEmpty()) { // 비어있는 칸 없는지 확인. 있으면 true 반환
            return;
-        }
-        if(isDuplicateId()){ // ID값 중복된 것 있는지 확인. 있으면 true 반환
+        } else if(isDuplicateId()) { // ID값 중복된 것 있는지 확인. 있으면 true 반환
             Toast.makeText(this, "이미 있는 ID 입니다. ID를 변경해주세요.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if(!isCorreectPw()){ // PW, PwChk 값 같은지 확인. 같으면 true 반환
+        } else if(!isCorreectPw()) { // PW, PwChk 값 같은지 확인. 같으면 true 반환
             Toast.makeText(this, "비밀번호와 비밀번호 확인의 값이 다릅니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -112,15 +109,11 @@ public class RegisterActivity extends AppCompatActivity {
         userBean.setYears(String.valueOf(selectYears));
 
         dbHelper.insertUser(userBean);
-        // showUsers();
         Toast.makeText(this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-
-        //alertDialog 띄워주기
-
         finish();
     }
 
-    public void onCancelBtnClick(View v){
+    public void onCancelBtnClick(View v) {
         // 진짜 뒤로갈건지 확인하기
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
@@ -137,57 +130,55 @@ public class RegisterActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private boolean isDuplicateId(){
+    private boolean isDuplicateId() {
         String dbId = dbHelper.getUserId(String.valueOf(id.getText()));
 
-        if(dbId.isEmpty()){
+        if(dbId.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    private boolean isCorreectPw(){
+    private boolean isCorreectPw() {
         String pwValue = String.valueOf(pw.getText());
         String pwChkValue = String.valueOf(pwChk.getText());
 
-        if(pwValue.equals(pwChkValue)){
+        if(pwValue.equals(pwChkValue)) {
             return true;
         }
 
         pw.setText("");
         pwChk.setText("");
-
         moveFocus(pw);
-
         return false;
     }
 
-    private boolean isEmpty(){
-        if(TextUtils.isEmpty(name.getText())){
+    private boolean isEmpty() {
+        if(TextUtils.isEmpty(name.getText())) {
             showDialog("이름", name);
             return true;
         }
-        else if(TextUtils.isEmpty(email.getText())){
+        else if(TextUtils.isEmpty(email.getText())) {
             showDialog("이메일", email);
             return true;
         }
-        else if(TextUtils.isEmpty(id.getText())){
+        else if(TextUtils.isEmpty(id.getText())) {
             showDialog("아이디", id);
             return true;
         }
-        else if(TextUtils.isEmpty(pw.getText())){
+        else if(TextUtils.isEmpty(pw.getText())) {
             showDialog("비밀번호", pw);
             return true;
         }
-        else if(TextUtils.isEmpty(pwChk.getText())){
+        else if(TextUtils.isEmpty(pwChk.getText())) {
             showDialog("비밀번호 확인", pwChk);
             return true;
         }
-        else if(TextUtils.isEmpty(selectGender)){
+        else if(TextUtils.isEmpty(selectGender)) {
             showDialog("성별");
             return true;
         }
-        else if(TextUtils.isEmpty(selectYears)){
+        else if(TextUtils.isEmpty(selectYears)) {
             showDialog("연령");
             return true;
         }
@@ -195,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity {
         return false;
     }
 
-    private void showDialog(String str){
+    private void showDialog(String str) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage( str + "을 선택해주세요.");
@@ -204,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void showDialog(String str, final EditText et){
+    private void showDialog(String str, final EditText et) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("알림");
         builder.setMessage( str + "을(를) 기입해주세요.");
@@ -218,18 +209,7 @@ public class RegisterActivity extends AppCompatActivity {
         builder.show();
     }
 
-    /*
-    private void showUsers() {
-        ArrayList<UserBean> userBean = dbHelper.getAll();
-
-        for(UserBean u : userBean){
-            String msg = "[ " + u.getSerialNumber() + " ] " + u.getId() + ", " + u.getName() + ", " + u.getEmail();
-            Toast.makeText(getBaseContext(), msg, Toast.LENGTH_SHORT).show();
-        }
-    }
-    */
-
-    private void moveFocus(EditText et){
+    private void moveFocus(EditText et) {
         // 해당 position으로 focus 이동 후 키보드 올리기
         et.requestFocus();
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

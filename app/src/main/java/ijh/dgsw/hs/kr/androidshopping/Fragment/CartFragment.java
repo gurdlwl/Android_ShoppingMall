@@ -40,7 +40,7 @@ public class CartFragment extends Fragment implements ItemClickListener {
         showProduct();
     }
 
-    private void showProduct(){
+    private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
         data = dbHelper.getAllProduct();
         db = dbHelper.getWritableDatabase();

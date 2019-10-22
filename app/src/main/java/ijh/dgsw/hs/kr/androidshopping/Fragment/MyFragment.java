@@ -1,13 +1,16 @@
 package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ import ijh.dgsw.hs.kr.androidshopping.MainActivity;
 import ijh.dgsw.hs.kr.androidshopping.R;
 
 public class MyFragment extends Fragment {
-    // 이름, 아이디, 이메일, 성별, 나이 알려주기
+    // 이름, 아이디, 이메일, 성별, 나이 표시해주기
     // 정보수정? 시간 남으면 하기 -> 정보수정 글씨를 누르면 팝업화면으로 수정하고 확인하면 refresh
     private TextView userName;
     private TextView userName2;
@@ -55,15 +58,24 @@ public class MyFragment extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 로그아웃 할거야? alert dialog 띄우기.
-                pManager.clear(getContext());
-
-                ((MainActivity)getActivity()).finish();
+                showDialog();
             }
         });
 
-        // 회원탈퇴 구현
-
+        // 시간남으면 회원탈퇴 구현
         return rootView;
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("알림");
+        builder.setMessage("정말 로그아웃 하시겠습니까?");
+        builder.setPositiveButton("네", new DialogInterface.OnClickListener() {
+            @Override public void onClick(DialogInterface dialog, int which) {
+                pManager.clear(getContext());
+                ((MainActivity)getActivity()).finish();
+            }
+        });
+        builder.show();
     }
 }

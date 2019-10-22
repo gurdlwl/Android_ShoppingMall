@@ -29,7 +29,6 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     private static final String TYPE_BOTTOM = "Bottom";
     private static final String TYPE_ACC = "Acc";
 
-
     private View rootView;
     private RecyclerView recyclerView;
     private SelectRecyclerAdapter tAdapter;
@@ -47,7 +46,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         return rootView;
     }
 
-    private void showTypeSelecter(){
+    private void showTypeSelecter() {
         tData = getContext().getResources().getStringArray(R.array.type);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -58,7 +57,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         recyclerView.setAdapter(tAdapter);
     }
 
-    private void showProduct(){
+    private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
         pData = dbHelper.getAllProduct();
 
@@ -69,7 +68,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         recyclerView.setAdapter(pAdapter);
     }
 
-    private void showProduct(String type){
+    private void showProduct(String type) {
         pData.clear();
         pData = dbHelper.getProductbyType(type);
         pAdapter.updateData(pData);
@@ -79,11 +78,11 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     public void onItemClick(View v, int position) {
         String type = String.valueOf(((TextView)(v.findViewById(R.id.typeSelectTv))).getText());
 
-        if(type.equals(TYPE_TOP)){
+        if(type.equals(TYPE_TOP)) {
             showProduct(type);
-        } else if(type.equals(TYPE_BOTTOM)){
+        } else if(type.equals(TYPE_BOTTOM)) {
             showProduct(type);
-        } else if(type.equals(TYPE_ACC)){
+        } else if(type.equals(TYPE_ACC)) {
             showProduct(type);
         }
     }

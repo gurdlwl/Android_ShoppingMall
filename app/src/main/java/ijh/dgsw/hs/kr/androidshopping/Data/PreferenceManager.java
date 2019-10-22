@@ -25,13 +25,6 @@ public class PreferenceManager {
         return value;
     }
 
-    public void removeKey(Context context, String key){
-        SharedPreferences preferences = getPreferences(context);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(key);
-        editor.commit();
-    }
-
     public void clear(Context context){
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();

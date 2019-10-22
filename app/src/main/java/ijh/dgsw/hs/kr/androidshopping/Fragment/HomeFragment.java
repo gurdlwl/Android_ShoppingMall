@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         return rootView;
     }
 
-    private void flipperImages(int image){
+    private void flipperImages(int image) {
         ImageView imageView = new ImageView(getContext());
         imageView.setBackgroundResource(image);
 
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         viewFlipper.setOutAnimation(getContext(), R.anim.slide_out_anim);
     }
 
-    private void showProduct(){
+    private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
         data = dbHelper.getRandomProduct();
         db = dbHelper.getWritableDatabase();

@@ -15,7 +15,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment implements View
     private TextView cancel;
     private TextView cart;
 
-    public static BottomSheetDialog getInsetance(){
+    public static BottomSheetDialog getInsetance() {
         return new BottomSheetDialog();
     }
 
@@ -48,5 +48,4 @@ public class BottomSheetDialog extends BottomSheetDialogFragment implements View
 
         dismiss();
     }
-
 }
