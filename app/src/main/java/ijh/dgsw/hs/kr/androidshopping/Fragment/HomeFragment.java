@@ -1,15 +1,13 @@
 package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
@@ -17,20 +15,18 @@ import java.util.ArrayList;
 
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
-import ijh.dgsw.hs.kr.androidshopping.Recycler.ItemClickListener;
+import ijh.dgsw.hs.kr.androidshopping.Recycler.HomeGridAdapter;
 import ijh.dgsw.hs.kr.androidshopping.R;
-import ijh.dgsw.hs.kr.androidshopping.Recycler.HomeRecyclerAdapter;
 
-public class HomeFragment extends Fragment implements ItemClickListener {
+public class HomeFragment extends Fragment {
     private static final int INTERVAL_TIME = 3800;
 
     private View rootView;
     private ViewFlipper viewFlipper;
-    private RecyclerView recyclerView;
-    private HomeRecyclerAdapter adapter;
+    private GridView gridView;
+    private HomeGridAdapter adapter;
     private ArrayList<ProductBean> data;
     private ProductDBHelper dbHelper;
-    private SQLiteDatabase db;
 
     int images[] = {
             R.drawable.slide_image_1,
@@ -67,17 +63,9 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
         data = dbHelper.getRandomProduct();
-        db = dbHelper.getWritableDatabase();
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),3);
-        recyclerView = rootView.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new HomeRecyclerAdapter(data, this);
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemClick(View v, int position) {
-        // click 했을 때 일어날 일. ex) 상품 상세화면
+        gridView = rootView.findViewById(R.id.gridView);
+        adapter = new HomeGridAdapter(getContext(), data);
+        gridView.setAdapter(adapter);
     }
 }
