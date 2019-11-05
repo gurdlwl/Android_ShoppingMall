@@ -1,7 +1,6 @@
 package ijh.dgsw.hs.kr.androidshopping;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,13 +17,11 @@ import ijh.dgsw.hs.kr.androidshopping.Data.PreferenceManager;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
 public class LoginActivity extends AppCompatActivity {
-
     private Animation logoAni; // 위치 이동
     private Animation loginFormAni; // 투명도 조절
     private ImageView imgView;
     private LinearLayout loginForm;
     private UserDBHelper dbHelper;
-    private SQLiteDatabase db;
     private PreferenceManager pManager;
 
     private EditText id;
@@ -58,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         loginFormAni.setDuration(1000);
         loginFormAni.setStartOffset(3000);
 
-        imgView.setAnimation(logoAni); // 애니메이션을 세팅해줌
+        imgView.setAnimation(logoAni); // 애니메이션 세팅
         loginForm.setAnimation(loginFormAni);
     }
 
     public void loginCheck() {
         String loginId = pManager.getString(this, "user_id");
 
-        if(loginId.length() != 0) {
+        if(loginId.length() != 0) { // preference가 비어있지 않으면 바로 Main실행.
             startMainActivity();
         }
     }

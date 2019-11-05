@@ -1,6 +1,5 @@
 package ijh.dgsw.hs.kr.androidshopping.Fragment;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,18 +19,17 @@ import ijh.dgsw.hs.kr.androidshopping.Data.ProductBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.ProductDBHelper;
 
 public class CartFragment extends Fragment implements ItemClickListener {
-    private View rootView;
+    private View view;
     private RecyclerView recyclerView;
     private CartRecyclerAdapter adapter;
     private ArrayList<ProductBean> data;
     private ProductDBHelper dbHelper;
-    private SQLiteDatabase db;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_cart_fragment, container, false);
+        view = inflater.inflate(R.layout.activity_cart_fragment, container, false);
 
-        return rootView;
+        return view;
     }
 
     @Override
@@ -43,10 +41,9 @@ public class CartFragment extends Fragment implements ItemClickListener {
     private void showProduct() {
         dbHelper = ProductDBHelper.getInstance(getContext());
         data = dbHelper.getAllProduct();
-        db = dbHelper.getWritableDatabase();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView = rootView.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new CartRecyclerAdapter(data, this);
         recyclerView.setAdapter(adapter);

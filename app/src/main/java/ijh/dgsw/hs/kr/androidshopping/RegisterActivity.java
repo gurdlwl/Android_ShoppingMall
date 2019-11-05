@@ -20,7 +20,6 @@ import ijh.dgsw.hs.kr.androidshopping.Data.UserBean;
 import ijh.dgsw.hs.kr.androidshopping.Data.UserDBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
-
     private static final String EMPTY_STRING = "";
 
     private Spinner yearsSpinner;

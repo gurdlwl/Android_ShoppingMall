@@ -26,7 +26,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     private static final String TYPE_BOTTOM = "Bottom";
     private static final String TYPE_ACC = "Acc";
 
-    private View rootView;
+    private View view;
     private RecyclerView recyclerView;
     private SelectRecyclerAdapter tAdapter;
     private String[] tData;
@@ -35,12 +35,12 @@ public class ShopFragment extends Fragment implements ItemClickListener {
     private ProductDBHelper dbHelper;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.activity_shop_fragment, container, false);
+        view = inflater.inflate(R.layout.activity_shop_fragment, container, false);
 
         showTypeSelecter();
         showProduct();
 
-        return rootView;
+        return view;
     }
 
     private void showTypeSelecter() {
@@ -48,7 +48,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView = rootView.findViewById(R.id.typeSelectRecycler);
+        recyclerView = view.findViewById(R.id.typeSelectRecycler);
         recyclerView.setLayoutManager(layoutManager);
         tAdapter = new SelectRecyclerAdapter(tData, this);
         recyclerView.setAdapter(tAdapter);
@@ -59,7 +59,7 @@ public class ShopFragment extends Fragment implements ItemClickListener {
         pData = dbHelper.getAllProduct();
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
-        recyclerView = rootView.findViewById(R.id.productRecycler);
+        recyclerView = view.findViewById(R.id.productRecycler);
         recyclerView.setLayoutManager(layoutManager);
         pAdapter = new ShopRecyclerAdapter(pData, this);
         recyclerView.setAdapter(pAdapter);

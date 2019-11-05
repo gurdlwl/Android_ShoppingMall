@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment implements View.OnClickListener {
-
     private TextView cancel;
     private TextView cart;
 

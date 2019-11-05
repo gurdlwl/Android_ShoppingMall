@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,16 +33,16 @@ public class MyFragment extends Fragment {
     private PreferenceManager pManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_my_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_my_fragment, container, false);
 
         pManager = new PreferenceManager();
-        userName = rootView.findViewById(R.id.usernameTv);
-        userName2 = rootView.findViewById(R.id.usernameTv2);
-        userId = rootView.findViewById(R.id.useridTv);
-        userEmail = rootView.findViewById(R.id.useremailTv);
-        userGender = rootView.findViewById(R.id.usergenderTv);
-        userYears = rootView.findViewById(R.id.useryearsTv);
-        logout = rootView.findViewById(R.id.logoutTv);
+        userName = view.findViewById(R.id.usernameTv);
+        userName2 = view.findViewById(R.id.usernameTv2);
+        userId = view.findViewById(R.id.useridTv);
+        userEmail = view.findViewById(R.id.useremailTv);
+        userGender = view.findViewById(R.id.usergenderTv);
+        userYears = view.findViewById(R.id.useryearsTv);
+        logout = view.findViewById(R.id.logoutTv);
 
         dbHelper = UserDBHelper.getInstance(getContext());
         ArrayList<UserBean> userArr = dbHelper.getUserById(pManager.getString(getContext(), "user_id"));
@@ -63,7 +62,7 @@ public class MyFragment extends Fragment {
         });
 
         // 시간남으면 회원탈퇴 구현
-        return rootView;
+        return view;
     }
 
     private void showDialog() {
